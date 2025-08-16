@@ -1,5 +1,7 @@
 package product;
 
+import java.util.List;
+
 public class Main {
 	public static void main(String[] args) {
 		ProductsManager manager = new ProductsManager();
@@ -12,17 +14,24 @@ public class Main {
 
 		System.out.println("---商品を5つ追加して全てを表示する---");
 		manager.displayAllProducts();
-
 		manager.removeProduct(1);
 
 		System.out.println("\n---商品を一つ削除して全てを表示する---");
 		manager.displayAllProducts();
 
 		Product found = manager.getProductByName("米");
-		System.out.println("\n---商品名「米」の情報を表示する ---");
-		if (found != null) {
-			System.out.println(found);
+		System.out.println("\n---商品名「米」の情報を表示する---");
+		System.out.println(found);
 
+		DiscountedProduct sofa = new DiscountedProduct(2, "ソファ", 30000, 5, 0.3);
+		System.out.println("\n---商品名「ソファ」の情報と割引率30％の情報を表示する---");
+		System.out.println(sofa);
+
+		//forが必要な理由はリスト内の要素を取り出して処理するため
+		List<Product> results = manager.search("Tシャツ");
+		System.out.println("\n---商品名「Tシャツ」を検索して表示する---");
+		for (Product product : results) {
+			System.out.println(product);
 		}
 	}
 }
