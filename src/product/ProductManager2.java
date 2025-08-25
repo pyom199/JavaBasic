@@ -12,14 +12,14 @@ public class ProductManager2 {
 
 	public void run() {
 		while (true) {
-			System.out.println("--メニュー--");
+			System.out.println("--メニュ--");
 			System.out.println("1:商品追加");
-			System.out.println("2:商品削除");
-			System.out.println("3:商品情報取得");
-			System.out.println("4:商品検索");
-			System.out.println("5:商品全て表示");
+			System.out.println("2:商品情報取得");//sakujo
+			System.out.println("3:商品検索");//jouhou
+			System.out.println("4:商品全て表示");//けんさく
+			System.out.println("5:商品削除");//すべて
 			System.out.println("0:終了");
-			System.out.print("\nメニューから操作を選択してください：");
+			System.out.print("\nメニューから操作を選択してください。");
 
 			String choice = scanner.nextLine().trim();
 
@@ -28,16 +28,19 @@ public class ProductManager2 {
 				addProduct();
 				break;
 			case "2":
-				deleteProduct();
-				break;
-			case "3":
 				getProductInfo();
 				break;
-			case "4":
+			case "3":
+
 				searchProduct();
 				break;
-			case "5":
+			case "4":
+
 				displayAllProducts();
+				break;
+			case "5":
+				deleteProduct();
+
 				break;
 			case "0":
 				System.out.println("終了します");
@@ -59,24 +62,8 @@ public class ProductManager2 {
 
 			Product p = new Product(nextId, name, price, stock);
 			productList.add(p);
-			System.out.println("商品を追加しました: " + p);
+			System.out.println(p + "を登録しました。");
 			nextId++;
-		} catch (Exception e) {
-			System.err.println(e);
-			System.err.println("\tat " + e.getStackTrace()[0]);
-		}
-	}
-
-	private void deleteProduct() {
-		try {
-			System.out.print("削除する商品のIDを入力してください：");
-			int id = Integer.parseInt(scanner.nextLine().trim());
-			boolean removed = productList.removeIf(p -> p.getId() == id);
-			if (removed) {
-				System.out.println("商品ID " + id + " を削除しました。");
-			} else {
-				System.out.println("商品ID " + id + " は見つかりませんでした。");
-			}
 		} catch (Exception e) {
 			System.err.println(e);
 			System.err.println("\tat " + e.getStackTrace()[0]);
@@ -85,14 +72,14 @@ public class ProductManager2 {
 
 	private void getProductInfo() {
 		try {
-			System.out.print("商品名を入力してください：");
+			System.out.print("商品情報を取得する商品名を入力してください：");
 			String name = scanner.nextLine().trim();
 			Product found = productList.stream()
 					.filter(p -> p.getName().equals(name))
 					.findFirst()
 					.orElse(null);
 			if (found != null) {
-				System.out.println("商品情報: " + found);
+				System.out.println("取得した商品は、" + found + "です。");
 			} else {
 				System.out.println("該当する商品がありません。");
 			}
@@ -104,7 +91,7 @@ public class ProductManager2 {
 
 	private void searchProduct() {
 		try {
-			System.out.print("検索キーワードを入力してください：");
+			System.out.print("検索する商品名を入力してください：");
 			String keyword = scanner.nextLine().trim();
 			List<Product> results = new ArrayList<>();
 			for (Product p : productList) {
@@ -132,13 +119,29 @@ public class ProductManager2 {
 				System.out.println("商品は登録されていません。");
 				return;
 			}
-			System.out.println("全商品リスト:");
+			System.out.println("商品を全て表示します");
 			for (Product p : productList) {
 				System.out.println(p);
 			}
 		} catch (Exception e) {
 			System.out.println("無効な入力です。");
 			e.printStackTrace();
+		}
+	}
+
+	private void deleteProduct() {
+		try {
+			System.out.print("削除する商品のIDを入力してください：");
+			int id = Integer.parseInt(scanner.nextLine().trim());
+			boolean removed = productList.removeIf(p -> p.getId() == id);
+			if (removed) {
+				System.out.println("商品IDが" + id + "の商品を削除しました。");
+			} else {
+				System.out.println("商品ID が" + id + "の商品は見つかりませんでした。");
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+			System.err.println("\tat " + e.getStackTrace()[0]);
 		}
 	}
 
