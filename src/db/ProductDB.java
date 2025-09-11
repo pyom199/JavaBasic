@@ -112,7 +112,6 @@ public class ProductDB {
 					System.out.println("該当する商品は見つかりませんでした。");
 				}
 			}
-
 		} catch (SQLException e) {
 			System.err.println("削除時にデータベースエラーが発生しました: " + e.getMessage());//例外が発生した場合は、メッセージを表示して処理終了
 		}
